@@ -1,5 +1,12 @@
+<script setup lang="ts">
+const route = useRoute()
+</script>
+
 <template>
-  <div>
-    <h1 class="text-3xl font-bold text-center uppercase">Hello Nuxt</h1>
-  </div>
+    <nav class="flex gap-6 p-4 text-white bg-blue-600 align-center">
+        <NuxtLink to="/">Home</NuxtLink>
+        <NuxtLink to="/create">Create</NuxtLink>
+    </nav>
+    <NuxtLoadingIndicator />
+    <NuxtPage />
 </template>
