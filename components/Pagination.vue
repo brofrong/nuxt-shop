@@ -7,7 +7,6 @@ const params = withDefaults(defineProps<{ page: number, limit: number; total: nu
     limit: 0,
     total: 0,
 });
-
 const { page, total, limit } = toRefs(params);
 
 const emit = defineEmits(['pageChange']);
