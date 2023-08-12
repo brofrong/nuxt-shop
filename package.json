@@ -17,7 +17,8 @@
     "drizzle-kit": "^0.19.12",
     "nuxt": "^3.6.5",
     "postcss": "^8.4.27",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.3",
+    "vite-svg-loader": "^4.0.0"
   },
   "dependencies": {
     "@libsql/client": "^0.3.1",
