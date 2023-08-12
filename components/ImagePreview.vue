@@ -7,7 +7,7 @@ const currentImgIndex = ref(0);
 
 function mousemove(e: MouseEvent) {
     const targetWidth = (e.currentTarget as HTMLDivElement).clientWidth;
-    const x = e.clientX - (e.currentTarget as HTMLDivElement).offsetLeft;
+    const x = e.x - (e.currentTarget as HTMLDivElement).offsetLeft;
     const numberOfElements = images.length;
 
     if (x < 0) return;

@@ -35,10 +35,10 @@ function buildConditions(input: ProductsInput) {
   const condition: SQL[] = [];
 
   if (input.title) condition.push(like(products.title, `%${input.title}%`));
-  if (input.category) condition.push(eq(products.category, input.category));
-  if (input.brand) condition.push(eq(products.brand, `%${input.brand}%`));
+  if (input.category) condition.push(like(products.category, input.category));
+  if (input.brand) condition.push(like(products.brand, `%${input.brand}%`));
   if (input.description)
-    condition.push(eq(products.description, `%${input.description}%`));
+    condition.push(like(products.description, `%${input.description}%`));
   if (input.maxPrice !== Infinity)
     condition.push(lte(products.price, input.maxPrice));
 
