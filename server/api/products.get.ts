@@ -1,7 +1,6 @@
-import { useValidatedQuery, zh } from "h3-zod";
-import { z } from "zod";
+import { SQL, and, gte, like, lte, sql } from "drizzle-orm";
+import { useValidatedQuery } from "h3-zod";
 import { db } from "../db/db";
-import { SQL, and, eq, gt, gte, like, lte, sql } from "drizzle-orm";
 import { products } from "../db/schemas/products.schema";
 import {
   ProductsInput,
