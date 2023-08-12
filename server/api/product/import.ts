@@ -1,12 +1,11 @@
+import { useValidatedBody } from "h3-zod";
 import { z } from "zod";
+import { db } from "../../db/db";
+import { images, insertImagesType } from "../../db/schemas/images.schema";
 import {
   insertProductSchema,
   products,
 } from "../../db/schemas/products.schema";
-import { useValidatedBody } from "h3-zod";
-import { db } from "../../db/db";
-import { images, insertImagesType } from "../../db/schemas/images.schema";
-import { I } from "drizzle-orm/select.types.d-7da7fae0";
 
 const imagesArray = z.object({ images: z.array(z.string()) });
 
@@ -17,7 +16,7 @@ const importSchema = z.object({
 export default defineEventHandler(async (event) => {
   const body = await useValidatedBody(event, importSchema);
 
-  const insertProducts = db
+  const insertProducts = await db
     .insert(products)
     .values(body.products)
     .onConflictDoNothing({ target: products.id })
@@ -31,7 +30,7 @@ export default defineEventHandler(async (event) => {
       }
     })
   );
-  const insertImages = db.insert(images).values(imagesValues).run();
+  const insertImages = await db.insert(images).values(imagesValues).run();
 
-  return "Ok";
+  return { insertProducts, insertImages };
 });

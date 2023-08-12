@@ -2,8 +2,8 @@ import { drizzle } from "drizzle-orm/libsql";
 import { migrate } from "drizzle-orm/libsql/migrator";
 import { createClient } from "@libsql/client";
 import { ENV } from "../env";
-import { images } from "./schemas/images.schema";
-import { products } from "./schemas/products.schema";
+import { images, postsRelations } from "./schemas/images.schema";
+import { products, productsRelations } from "./schemas/products.schema";
 
 const client = createClient({
   url: ENV.DATABASE_URL,
@@ -11,7 +11,12 @@ const client = createClient({
 });
 
 export const db = drizzle(client, {
-  schema: { images: images, products: products },
+  schema: {
+    images: images,
+    products: products,
+    productsRelations: productsRelations,
+    postsRelations: postsRelations,
+  },
 });
 
 migrate(db, { migrationsFolder: "server/drizzle" });
