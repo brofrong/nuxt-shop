@@ -32,4 +32,7 @@ const schema = {
 
 export const db = drizzle(client, { schema });
 
-migrate(db, { migrationsFolder: "server/drizzle" });
+// Для более простой работы миграции только при разработке
+if (ENV.DEV) {
+  migrate(db, { migrationsFolder: "server/drizzle" });
+}
