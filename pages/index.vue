@@ -32,6 +32,7 @@ function updateFilter(updateData: ProductFilterType) {
 function changePage(pageNumber: number) {
     filter.value.page = pageNumber;
     if (process.client) window?.scroll({ top: 0 });
+    navigateTo({ path: '/', query: filter.value, replace: false })
 }
 
 </script>
