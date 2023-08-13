@@ -7,7 +7,7 @@ import { debounce } from '~/helpers/debounce';
 import { isEqual } from 'lodash';
 
 const props = defineProps<{ initialValue: ProductFilterType }>();
-const { initialValue: initialValueRef } = toRefs(props);
+
 const emit = defineEmits<{ (e: 'filter', filter: ProductFilterType): void }>();
 const debouncedEmit = debounce(emit, 500);
 
@@ -28,7 +28,7 @@ const { values, setValues } = useForm({
 });
 
 // костыль, если пришёл фильтр идентичный дефолтному необходмо обновить форму, нужно что бы корректно работало обнуление quety параметров
-watch(initialValueRef, () => { if (isEqual(props.initialValue, defaultFilter)) { setValues(defaultFilter) } });
+watch(props.initialValue, () => { if (isEqual(props.initialValue, defaultFilter)) { setValues(defaultFilter) } });
 watch(values, (it) => debouncedEmit('filter', it as ProductFilterType));
 
 </script>
