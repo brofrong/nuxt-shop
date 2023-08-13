@@ -8,7 +8,6 @@ import { defaultFilter } from '~/helpers/defaultFilter';
 const route = useRoute();
 const router = useRouter();
 
-
 const query = productsInputSchema.partial().parse(route.query);
 
 const filter = ref<ProductsInput>({

@@ -13,11 +13,12 @@ const route = useRoute()
             <h4 class="font-bold whitespace-nowrap">Nuxt Shop</h4>
         </NuxtLink>
         <ul class="flex gap-3 align-middle">
-            <a class="flex items-center transition-colors underline-offset-2 hover:text-green-300 fill-white hover:fill-green-300"
-                href="/">
+            <NuxtLink
+                class="flex items-center transition-colors underline-offset-2 hover:text-green-300 fill-white hover:fill-green-300"
+                to="/">
                 <StoreIcon class="w-6 h-6 mr-1" />
                 <li>Home</li>
-            </a>
+            </NuxtLink>
             <NuxtLink
                 class="flex items-center transition-colors underline-offset-2 hover:text-green-300 fill-white hover:fill-green-300"
                 to="/create">
