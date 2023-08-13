@@ -1,11 +1,38 @@
 <script setup lang="ts">
+import { FetchResult } from 'nuxt/app';
 import DeleteIcon from '~/assets/svg/delete.svg?component';
 import EditIcon from '~/assets/svg/edit.svg?component';
 
 const router = useRouter();
-
 const route = useRoute();
-const { data: product, error } = useFetch('/api/product', { query: { id: route.params.id } });
+
+function setSeo(product: FetchResult<'/api/product', 'get'>) {
+    useHead({
+        title: `Nuxt Shop - ${product.title}`,
+        meta: [
+            { name: 'description', content: `Fake shop site, created for technical task. Fake product description: ${product.description}` },
+        ],
+    });
+
+    useSeoMeta({
+        title: `Nuxt Shop - ${product.title}`,
+        ogTitle: `Nuxt Shop - ${product.title}`,
+        description: `Fake shop site, created for technical task. Fake product description: ${product.description}`,
+        ogDescription: `Fake shop site, created for technical task. Fake product description: ${product.description}`,
+        ogImage: product.thumbnail,
+        twitterCard: 'summary_large_image',
+        ogUrl: 'https://nuxt-shop-brofrong.vercel.app/'
+    });
+}
+
+const { data: product, error } = useFetch('/api/product', {
+    query: { id: route.params.id }
+});
+
+// ставим сео если запрос прошёл на стороне клиента
+watch(product, () => product.value && setSeo(product.value));
+// выставлем сео если запрос выполнялся на сервере
+if (product.value) setSeo(product.value);
 
 function deleteProduct() {
     $fetch('/api/product', { query: { id: product.value?.id }, method: "DELETE", onResponse: () => { navigateTo('/') } });
@@ -18,8 +45,8 @@ function deleteProduct() {
         <div v-if="product" class="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-3">
             <div class="rounded bg-slate-100">
                 <!-- По хорошему нужно вынести значения breakpoint'ов в vue, что бы можно было с помощью v-if не рендерить не нужный компонент -->
-                <ImagePreview class="hidden sm:block" :images="product.images.map(img => img.url)" />
-                <ImageCarousel class="block sm:hidden" :images="product.images.map(img => img.url)" />
+                <ImagePreview :alt="product.title" class="hidden sm:block" :images="product.images.map(img => img.url)" />
+                <ImageCarousel :alt="product.title" class="block sm:hidden" :images="product.images.map(img => img.url)" />
             </div>
             <div class="col-span-2">
                 <div class="flex items-center justify-between">

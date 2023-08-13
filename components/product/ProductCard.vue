@@ -12,8 +12,8 @@ const priceWithDiscount = Math.round(product.price - (product.price * (product.d
     <div>
         <NuxtLink :to="`product/${product.id}`" class="block rounded bg-slate-100">
             <!-- По хорошему нужно вынести значения breakpoint'ов в vue, что бы можно было с помощью v-if не рендерить не нужный компонент -->
-            <ImagePreview class="hidden sm:block" :images="product.images.map(img => img.url)" />
-            <ImageCarousel class="block sm:hidden" :images="product.images.map(img => img.url)" />
+            <ImagePreview :alt="product.title" class="hidden sm:block" :images="product.images.map(img => img.url)" />
+            <ImageCarousel :alt="product.title" class="block sm:hidden" :images="product.images.map(img => img.url)" />
         </NuxtLink>
         <div class="flex items-end gap-2 mb-1">
             <div class="font-bold">{{ priceWithDiscount }} $</div>

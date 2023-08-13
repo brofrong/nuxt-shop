@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge'
 
-const { images } = defineProps<{ images: string[] }>();
+const { images, alt } = defineProps<{ images: string[], alt: string }>();
 
 const currentImgIndex = ref(0);
 
@@ -25,7 +25,7 @@ function mouseleave() {
 
 <template>
     <div class="relative w-full h-full" @mousemove="mousemove" @mouseleave="mouseleave">
-        <img v-for="img, index in  images "
+        <img :alt="alt" v-for="img, index in  images "
             :class="twMerge('object-scale-down object-center m-auto mb-2 h-80 ', currentImgIndex !== index && 'hidden')"
             :src="img">
         <div class="absolute flex gap-2 -translate-x-1/2 -bottom-3 left-1/2">

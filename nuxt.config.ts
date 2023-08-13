@@ -4,7 +4,7 @@ import svgLoader from "vite-svg-loader";
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
-  modules: ["nuxt-swiper", "nuxt-lodash"],
+  modules: ["nuxt-swiper", "nuxt-lodash", "@nuxtjs/robots"],
   vite: {
     plugins: [svgLoader()],
   },
@@ -18,5 +18,12 @@ export default defineNuxtConfig({
     prefix: "_",
     prefixSkip: ["string"],
     upperAfterPrefix: false,
+  },
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+    },
   },
 });

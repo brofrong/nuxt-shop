@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge'
 
-const { images } = defineProps<{ images: string[] }>();
+const { images, alt } = defineProps<{ alt: string, images: string[] }>();
 
 const currentImgIndex = ref(0);
 
@@ -11,7 +11,7 @@ const currentImgIndex = ref(0);
     <div class="relative w-full h-full">
         <Swiper loop @real-index-change="(e) => currentImgIndex = e.realIndex">
             <SwiperSlide v-for="img, index in  images ">
-                <img :class="'object-scale-down object-center m-auto mb-2 h-80'" :src="img">
+                <img :alt="alt" :class="'object-scale-down object-center m-auto mb-2 h-80'" :src="img">
             </SwiperSlide>
         </Swiper>
 

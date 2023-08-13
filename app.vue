@@ -3,7 +3,24 @@ import NuxtLogoIcon from '~/assets/svg/nuxt-logo.svg?component';
 import StoreIcon from '~/assets/svg/store.svg?component';
 import EditIcon from '~/assets/svg/edit.svg?component';
 
-const route = useRoute()
+
+useHead({
+    title: 'Nuxt Shop',
+    meta: [
+        { name: 'description', content: 'Fake shop site, created for technical task.' },
+    ],
+});
+
+useSeoMeta({
+    title: 'Nuxt Shop',
+    ogTitle: 'Nuxt Shop',
+    description: 'Fake shop site, created for technical task.',
+    ogDescription: 'Fake shop site, created for technical task.',
+    ogImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Nuxt_logo_%282021%29.svg/2560px-Nuxt_logo_%282021%29.svg.png',
+    twitterCard: 'summary_large_image',
+    ogUrl: 'https://nuxt-shop-brofrong.vercel.app/'
+});
+
 </script>
 
 <template>
@@ -13,18 +30,22 @@ const route = useRoute()
             <h4 class="font-bold whitespace-nowrap">Nuxt Shop</h4>
         </NuxtLink>
         <ul class="flex gap-3 align-middle">
-            <NuxtLink
-                class="flex items-center transition-colors underline-offset-2 hover:text-green-300 fill-white hover:fill-green-300"
-                to="/">
-                <StoreIcon class="w-6 h-6 mr-1" />
-                <li>Home</li>
-            </NuxtLink>
-            <NuxtLink
-                class="flex items-center transition-colors underline-offset-2 hover:text-green-300 fill-white hover:fill-green-300"
-                to="/create">
-                <EditIcon class="w-6 h-6 mr-1" />
-                <li>Create</li>
-            </NuxtLink>
+            <li>
+                <NuxtLink
+                    class="flex items-center transition-colors underline-offset-2 hover:text-green-300 fill-white hover:fill-green-300"
+                    to="/">
+                    <StoreIcon class="w-6 h-6 mr-1" />
+                    <div>Home</div>
+                </NuxtLink>
+            </li>
+            <li>
+                <NuxtLink
+                    class="flex items-center transition-colors underline-offset-2 hover:text-green-300 fill-white hover:fill-green-300"
+                    to="/create">
+                    <EditIcon class="w-6 h-6 mr-1" />
+                    <div>create</div>
+                </NuxtLink>
+            </li>
         </ul>
     </nav>
     <NuxtLoadingIndicator />

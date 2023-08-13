@@ -8,6 +8,9 @@ dependencies:
   '@libsql/client':
     specifier: ^0.3.1
     version: 0.3.1
+  '@nuxtjs/robots':
+    specifier: ^3.0.0
+    version: 3.0.0
   '@vee-validate/zod':
     specifier: ^4.11.1
     version: 4.11.1(vue@3.3.4)
@@ -1211,6 +1214,16 @@ packages:
       - vti
       - vue-tsc
     dev: true
+
+  /@nuxtjs/robots@3.0.0:
+    resolution: {integrity: sha512-qsHGW1KXBvV5Kq7u3huPnFCUTbHS4Fk8Za2mNPgmUXcwLgp3exvhPtdZfIdjrCF/aZk3A8OZONNmGghs6CecBA==}
+    dependencies:
+      '@nuxt/kit': 3.6.5
+      h3: 1.7.1
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+    dev: false
 
   /@parcel/watcher-wasm@2.3.0-alpha.1:
     resolution: {integrity: sha512-wo6065l1MQ6SJPPchYw/q8J+pFL40qBXLu4Td2CXeQ/+mUk8NenNqC75P/P1Cyvpam0kfk91iszd+XL+xKDQww==}
