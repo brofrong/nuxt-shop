@@ -30,7 +30,7 @@ const isOpenFilterModal = ref(false);
 const { data, pending, refresh, error } = await useFetch('/api/products', { query: filter });
 
 function updateFilter(updateData: ProductFilterType) {
-    Object.assign(filter.value, updateData);
+    Object.assign(filter.value, updateData, { page: 0 });
     navigateTo({ path: '/', query: filter.value, replace: false })
 }
 
