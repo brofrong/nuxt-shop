@@ -25,7 +25,7 @@ function deleteProduct() {
                 <div class="flex items-center justify-between">
                     <h2 class="mb-6 text-2xl font-bold">{{ product.title }}</h2>
                     <div class="flex items-center gap-4">
-                        <NuxtLink :to="`/product/create?id=${product.id}`">
+                        <NuxtLink :to="`/create?id=${product.id}`">
                             <EditIcon class="w-6 h-6 hover:fill-green-600" />
                         </NuxtLink>
                         <button @click="deleteProduct">

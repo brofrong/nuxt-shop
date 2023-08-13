@@ -1,6 +1,6 @@
 import { useValidatedQuery } from "h3-zod";
 import { db } from "../../db/db";
-import { productGetInputSchema } from "../../input-schemas/product.get.input";
+import { productGetInputSchema } from "../../input-schemas/product.input";
 
 export default defineEventHandler(async (event) => {
   const input = await useValidatedQuery(event, productGetInputSchema);

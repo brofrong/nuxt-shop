@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Field, Form, useForm } from 'vee-validate';
-import { z } from 'zod';
 import { toTypedSchema } from '@vee-validate/zod';
+import { useForm } from 'vee-validate';
+import { z } from 'zod';
 import { debounce } from '~/helpers/debounce';
 
 const props = defineProps<{ initialValue: ProductFilterType }>();

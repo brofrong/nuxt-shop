@@ -1,6 +1,6 @@
 import { useValidatedQuery } from "h3-zod";
 import { db } from "../../db/db";
-import { productDeleteInputSchema } from "../../input-schemas/product.get.input";
+import { productDeleteInputSchema } from "../../input-schemas/product.input";
 import { products } from "../../db/schemas/products.schema";
 import { eq } from "drizzle-orm";
 import { images } from "../../db/schemas/images.schema";

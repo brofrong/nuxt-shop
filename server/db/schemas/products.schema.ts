@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 import { integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { images } from "./images.schema";
+import { string, z } from "zod";
 
 export const products = sqliteTable("users", {
   id: integer("id").primaryKey(),
@@ -20,4 +21,6 @@ export const productsRelations = relations(products, ({ many }) => ({
   images: many(images),
 }));
 
-export const insertProductSchema = createInsertSchema(products);
+export const insertProductSchema = createInsertSchema(products).merge(
+  z.object({ thumbnail: string().url() })
+);
