@@ -2,9 +2,12 @@
 import { ProductFilterType } from 'components/product/ProductFilter.vue';
 import { ProductsInput, productsInputSchema } from '~/server/input-schemas/products.input';
 import MenuIcon from '~/assets/svg/menu.svg?component';
+import { defaultFilter } from '~/helpers/defaultFilter';
+
 
 const route = useRoute();
 const router = useRouter();
+
 
 const query = productsInputSchema.partial().parse(route.query);
 
@@ -20,12 +23,15 @@ const filter = ref<ProductsInput>({
     title: query.title
 });
 
+// отслеживает route.query что бы очистить фильтыр если пользователей перейдёт по ссылке в шапке
+watch(() => route.query, () => { if (!Object.values(route.query).length) { Object.assign(filter.value, defaultFilter) } });
+
 const isOpenFilterModal = ref(false);
 
 const { data, pending, refresh, error } = await useFetch('/api/products', { query: filter });
 
 function updateFilter(updateData: ProductFilterType) {
-    filter.value = Object.assign(filter.value, updateData);
+    Object.assign(filter.value, updateData);
     navigateTo({ path: '/', query: filter.value, replace: false })
 }
 

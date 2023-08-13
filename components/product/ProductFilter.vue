@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
+import { defaultFilter } from '~/helpers/defaultFilter';
 import { useForm } from 'vee-validate';
 import { z } from 'zod';
 import { debounce } from '~/helpers/debounce';
+import { isEqual } from 'lodash';
 
 const props = defineProps<{ initialValue: ProductFilterType }>();
 const emit = defineEmits<{ (e: 'filter', filter: ProductFilterType): void }>();
@@ -19,11 +21,13 @@ const schema = z.object({
 }).refine((it) => it.minPrice < it.maxPrice, { path: ['minPrice'], message: 'Minimum Price must be less than maximum Price' });
 export type ProductFilterType = z.infer<typeof schema>;
 
-const { values } = useForm({
+const { values, setValues } = useForm({
     validationSchema: toTypedSchema(schema),
     initialValues: props.initialValue,
 });
 
+// костыль, если пришёл фильтр идентичный дефолтному необходмо обновить форму, нужно что бы корректно работало обнуление quety параметров
+watch(props, () => { if (isEqual(props.initialValue, defaultFilter)) { setValues(defaultFilter) } });
 watch(values, (it) => debouncedEmit('filter', it as ProductFilterType));
 
 </script>

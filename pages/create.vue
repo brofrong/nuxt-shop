@@ -16,7 +16,6 @@ let initialValues: FetchResult<'/api/product', 'get'> | null = null;
 if (route.query.id) {
     const { data } = await useFetch('/api/product', { query: { id: route.query.id } });
     initialValues = data.value;
-    console.log(initialValues);
 }
 
 const { validate, setFieldError } = useForm({

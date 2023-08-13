@@ -20,6 +20,9 @@ dependencies:
   h3-zod:
     specifier: ^0.5.1
     version: 0.5.1(h3@1.7.1)(zod@3.21.4)
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   nuxt-swiper:
     specifier: ^1.2.0
     version: 1.2.0
@@ -37,6 +40,9 @@ devDependencies:
   '@nuxt/devtools':
     specifier: latest
     version: 0.8.0(nuxt@3.6.5)(vite@4.4.9)
+  '@types/lodash':
+    specifier: ^4.14.197
+    version: 4.14.197
   '@types/node':
     specifier: ^18.17.3
     version: 18.17.3
@@ -1446,6 +1452,10 @@ packages:
     resolution: {integrity: sha512-HC8G7c1WmaF2ekqpnFq626xd3Zz0uvaqFmBJNRZCGEZCXkvSdJoNFn/8Ygbd9fKNQj8UzLdCETaI0UWPAjK7IA==}
     dependencies:
       '@types/node': 18.17.3
+    dev: true
+
+  /@types/lodash@4.14.197:
+    resolution: {integrity: sha512-BMVOiWs0uNxHVlHBgzTIqJYmj+PgCo4euloGF+5m4okL3rEYzM2EEv78mw8zWSMM57dM7kVIgJ2QDvwHSoCI5g==}
     dev: true
 
   /@types/node-fetch@2.6.4:
@@ -4130,7 +4140,6 @@ packages:
 
   /lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /lru-cache@10.0.1:
     resolution: {integrity: sha512-IJ4uwUTi2qCccrioU6g9g/5rvvVl13bsdczUUcqbciD9iLr095yj8DQKdObriEvuNSx325N1rV1O0sJFszx75g==}
