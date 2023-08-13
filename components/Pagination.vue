@@ -9,10 +9,11 @@ const params = withDefaults(defineProps<{ page: number, limit: number; total: nu
 });
 const { page, total, limit } = toRefs(params);
 
+
 const emit = defineEmits(['pageChange']);
 
 
-const lastPage = Math.ceil(total.value / limit.value);
+const lastPage = computed(() => Math.ceil(total.value / limit.value));
 
 
 function setPage(page: number) {
@@ -20,7 +21,7 @@ function setPage(page: number) {
 }
 
 function nextPage() {
-    if (page.value + 1 >= lastPage) return;
+    if (page.value + 1 >= lastPage.value) return;
     emit('pageChange', page.value + 1);
 }
 
@@ -46,7 +47,7 @@ function previousPage() {
                     Showing
                     <span class="font-medium">{{ limit * page + 1 }}</span>
                     to
-                    <span class="font-medium">{{ limit * (page + 1) }}</span>
+                    <span class="font-medium">{{ Math.min(limit * (page + 1), total) }}</span>
                     of
                     <span class="font-medium">{{ total }}</span>
                     results
