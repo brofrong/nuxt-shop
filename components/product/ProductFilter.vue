@@ -4,7 +4,6 @@ import { defaultFilter } from '~/helpers/defaultFilter';
 import { useForm } from 'vee-validate';
 import { z } from 'zod';
 import { debounce } from '~/helpers/debounce';
-import { isEqual } from 'lodash';
 
 const props = defineProps<{ initialValue: ProductFilterType }>();
 
@@ -28,7 +27,7 @@ const { values, setValues } = useForm({
 });
 
 // костыль, если пришёл фильтр идентичный дефолтному необходмо обновить форму, нужно что бы корректно работало обнуление quety параметров
-watch(props.initialValue, () => { if (isEqual(props.initialValue, defaultFilter)) { setValues(defaultFilter) } });
+watch(props.initialValue, () => { if (_isEqual(props.initialValue, defaultFilter)) { setValues(defaultFilter) } });
 watch(values, (it) => debouncedEmit('filter', it as ProductFilterType));
 
 </script>

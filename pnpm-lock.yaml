@@ -20,9 +20,9 @@ dependencies:
   h3-zod:
     specifier: ^0.5.1
     version: 0.5.1(h3@1.7.1)(zod@3.21.4)
-  lodash:
-    specifier: ^4.17.21
-    version: 4.17.21
+  nuxt-lodash:
+    specifier: ^2.5.0
+    version: 2.5.0
   nuxt-swiper:
     specifier: ^1.2.0
     version: 1.2.0
@@ -40,9 +40,6 @@ devDependencies:
   '@nuxt/devtools':
     specifier: latest
     version: 0.8.0(nuxt@3.6.5)(vite@4.4.9)
-  '@types/lodash':
-    specifier: ^4.14.197
-    version: 4.14.197
   '@types/node':
     specifier: ^18.17.3
     version: 18.17.3
@@ -1454,9 +1451,15 @@ packages:
       '@types/node': 18.17.3
     dev: true
 
+  /@types/lodash-es@4.17.8:
+    resolution: {integrity: sha512-euY3XQcZmIzSy7YH5+Unb3b2X12Wtk54YWINBvvGQ5SmMvwb11JQskGsfkH/5HXK77Kr8GF0wkVDIxzAisWtog==}
+    dependencies:
+      '@types/lodash': 4.14.197
+    dev: false
+
   /@types/lodash@4.14.197:
     resolution: {integrity: sha512-BMVOiWs0uNxHVlHBgzTIqJYmj+PgCo4euloGF+5m4okL3rEYzM2EEv78mw8zWSMM57dM7kVIgJ2QDvwHSoCI5g==}
-    dev: true
+    dev: false
 
   /@types/node-fetch@2.6.4:
     resolution: {integrity: sha512-1ZX9fcN4Rvkvgv4E6PAY5WXUFWFcRWxZa3EW83UjycOB9ljJCedb2CupIP4RZMEwF/M3eTcCihbBRgwtGbg5Rg==}
@@ -4094,6 +4097,10 @@ packages:
     resolution: {integrity: sha512-SFppqq5p42fe2qcZQqqEOiVRXl+WCP1MdT6k7BDEW1j++sp5fIY+/fdRQitvKgB5BrBcmrs5m/L0v2FrU5MY1g==}
     engines: {node: '>=14'}
 
+  /lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
+
   /lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
     dev: true
@@ -4140,6 +4147,7 @@ packages:
 
   /lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: true
 
   /lru-cache@10.0.1:
     resolution: {integrity: sha512-IJ4uwUTi2qCccrioU6g9g/5rvvVl13bsdczUUcqbciD9iLr095yj8DQKdObriEvuNSx325N1rV1O0sJFszx75g==}
@@ -4787,6 +4795,17 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /nuxt-lodash@2.5.0:
+    resolution: {integrity: sha512-nd7YrKzJH7kqMEwyAlwk0T8Fi/G1heAaWJENFm6SUIwYgR6AOigp/ryLya+JBEP+ZmGrJbIHq+mhWNdvKsLK7g==}
+    dependencies:
+      '@nuxt/kit': 3.6.5
+      '@types/lodash-es': 4.17.8
+      lodash-es: 4.17.21
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+    dev: false
 
   /nuxt-swiper@1.2.0:
     resolution: {integrity: sha512-09j/2GzFo7/4fMFOpwODcBP6VeO4+7ux2T7EjZV9l1HNcsBDwXpmjYI/stKU9xENoKmNSlru0IknU6dx1UDtdg==}
