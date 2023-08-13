@@ -29,7 +29,7 @@ const totalPriceWithDiscount = computed(() => shopItems.value.reduce((acc, it) =
             <button @click="clearCart"
                 class="flex items-center justify-center block w-full px-4 py-2 text-center text-white transition-colors bg-red-600 rounded-xl hover:bg-red-700 fill-white"
                 v-if="shopItems.length">Clear cart</button>
-            <div class="flex flex-col gap-4 overflow-scroll">
+            <div class="flex flex-col gap-4 overflow-y-scroll">
                 <ShoppingCartProductCard v-for="product in shopItems" :product="product" />
             </div>
             <div v-if="!shopItems.length" class="text-xl font-bold text-center text-white">Shopping cart is empty</div>

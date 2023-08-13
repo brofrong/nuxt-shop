@@ -35,7 +35,7 @@ watch(values, (it) => debouncedEmit('filter', it as ProductFilterType));
 <template>
     <div class="">
         <FormTextInput name="title" label="Title" type="text" placeholder="Iphone" />
-        <FormTextInput name="brand" label="brand" type="text" placeholder="Apple" />
+        <FormTextInput name="brand" label="Brand" type="text" placeholder="Apple" />
         <FormTextInput name="description" label="Description" type="text" placeholder="Best phone" />
         <FormRangeInput name="rating" label="Minimum rating" :min="0" :max="5" :step="0.1" />
         <FormRangeInput name="stock" label="Minimum stock" :min="0" :max="200" :step="1" />
