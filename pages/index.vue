@@ -1,15 +1,23 @@
 <script setup lang="ts">
 import { ProductFilterType } from 'components/product/ProductFilter.vue';
-import { ProductsInput } from 'server/input-schemas/products.input';
+import { ProductsInput, productsInputSchema } from '~/server/input-schemas/products.input';
 import MenuIcon from '~/assets/svg/menu.svg?component';
 
+const route = useRoute();
+const router = useRouter();
+
+const query = productsInputSchema.partial().parse(route.query);
 
 const filter = ref<ProductsInput>({
-    page: 0,
-    minPrice: 0,
-    maxPrice: Infinity,
-    rating: 0,
-    stock: 0,
+    page: query.page || 0,
+    minPrice: query.minPrice || 0,
+    maxPrice: query.maxPrice || Infinity,
+    rating: query.rating || 0,
+    stock: query.stock || 0,
+    brand: query.brand,
+    category: query.category,
+    description: query.description,
+    title: query.title
 });
 
 const isOpenFilterModal = ref(false);
@@ -18,6 +26,7 @@ const { data, pending, refresh, error } = await useFetch('/api/products', { quer
 
 function updateFilter(updateData: ProductFilterType) {
     filter.value = Object.assign(filter.value, updateData);
+    navigateTo({ path: '/', query: filter.value, replace: false })
 }
 
 function changePage(pageNumber: number) {

@@ -8,7 +8,7 @@ const route = useRoute();
 const { data: product, error } = useFetch('/api/product', { query: { id: route.params.id } });
 
 function deleteProduct() {
-    $fetch('/api/product', { query: { id: product.value?.id }, method: "DELETE", onResponse: () => { router.push('/') } });
+    $fetch('/api/product', { query: { id: product.value?.id }, method: "DELETE", onResponse: () => { navigateTo('/') } });
 }
 
 </script>

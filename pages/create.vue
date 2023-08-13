@@ -3,17 +3,19 @@ import { useForm } from 'vee-validate';
 import { z } from 'zod';
 import { toTypedSchema } from '@vee-validate/zod';
 import { insertProductSchema } from '~/server/db/schemas/products.schema';
+import { FetchResult } from 'nuxt/app';
 
 const route = useRoute();
 const router = useRouter();
 
 const schema = insertProductSchema;
 
-let initialValues = null;
+
+let initialValues: FetchResult<'/api/product', 'get'> | null = null;
 
 if (route.query.id) {
     const { data } = await useFetch('/api/product', { query: { id: route.query.id } });
-    initialValues = data;
+    initialValues = data.value;
     console.log(initialValues);
 }
 
@@ -32,7 +34,7 @@ async function submit() {
         method: 'POST',
         onResponse: async ({ response }) => {
             const newProduct = z.object({ id: z.number() }).parse(response._data);
-            router.push(`/product/${newProduct.id}`);
+            navigateTo(`/product/${newProduct.id}`);
         },
         onResponseError: (error) => setFieldError('title', error?.error?.message || 'Some error occurred when creating new product')
     });
