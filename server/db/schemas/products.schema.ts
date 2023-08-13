@@ -1,6 +1,6 @@
 import { relations } from "drizzle-orm";
 import { integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { createInsertSchema } from "drizzle-zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { images } from "./images.schema";
 import { string, z } from "zod";
 
@@ -24,3 +24,7 @@ export const productsRelations = relations(products, ({ many }) => ({
 export const insertProductSchema = createInsertSchema(products).merge(
   z.object({ thumbnail: string().url() })
 );
+
+export const ProductSchema = createSelectSchema(products);
+
+export type Product = z.infer<typeof ProductSchema>;

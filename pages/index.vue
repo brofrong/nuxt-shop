@@ -53,7 +53,7 @@ function changePage(pageNumber: number) {
 
         <div class="mb-4 sm:grid sm:grid-cols-4 sm:gap-4">
             <aside class="hidden h-full sm:block sm:relative">
-                <ProductFilter :initial-value="filter" @filter="updateFilter" class="w-full sm:sticky top-4" />
+                <ProductFilter :initial-value="filter" @filter="updateFilter" class="w-full sm:sticky top-20" />
             </aside>
             <div class="col-span-3">
                 <ProductCards :data="data" :error="error" :pending="pending" />

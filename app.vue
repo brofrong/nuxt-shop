@@ -24,8 +24,9 @@ useSeoMeta({
 </script>
 
 <template>
-    <nav class="flex items-center justify-between gap-6 p-4 text-white bg-blue-600 sm:justify-start align-center">
-        <NuxtLink class="flex gap-2 mr-8 align-middle transition-colors hover:text-green-300" to="/">
+    <nav
+        class="fixed top-0 left-0 z-30 flex items-center justify-between w-screen h-16 gap-6 p-4 text-white bg-blue-600 bg-opacity-90 backdrop-blur-md sm:justify-start align-center">
+        <NuxtLink class="flex gap-2 mr-2 align-middle transition-colors sm:mr-8 hover:text-green-300" to="/">
             <NuxtLogoIcon class="w-6 h-6" />
             <h4 class="font-bold whitespace-nowrap">Nuxt Shop</h4>
         </NuxtLink>
@@ -35,7 +36,7 @@ useSeoMeta({
                     class="flex items-center transition-colors underline-offset-2 hover:text-green-300 fill-white hover:fill-green-300"
                     to="/">
                     <StoreIcon class="w-6 h-6 mr-1" />
-                    <div>Home</div>
+                    <span class="hidden sm:block">Home</span>
                 </NuxtLink>
             </li>
             <li>
@@ -43,11 +44,17 @@ useSeoMeta({
                     class="flex items-center transition-colors underline-offset-2 hover:text-green-300 fill-white hover:fill-green-300"
                     to="/create">
                     <EditIcon class="w-6 h-6 mr-1" />
-                    <div>create</div>
+                    <span class="hidden sm:block">create</span>
                 </NuxtLink>
             </li>
         </ul>
+        <div class="flex items-end justify-end flex-grow">
+            <ShoppingCartNavIcon />
+        </div>
     </nav>
     <NuxtLoadingIndicator />
-    <NuxtPage />
+    <ShoppingCartMenu />
+    <div class="mt-16">
+        <NuxtPage />
+    </div>
 </template>
