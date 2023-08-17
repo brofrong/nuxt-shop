@@ -4,23 +4,6 @@ import StoreIcon from '~/assets/svg/store.svg?component';
 import EditIcon from '~/assets/svg/edit.svg?component';
 
 
-useHead({
-    title: 'Nuxt Shop',
-    meta: [
-        { name: 'description', content: 'Fake shop site, created for technical task.' },
-    ],
-});
-
-useSeoMeta({
-    title: 'Nuxt Shop',
-    ogTitle: 'Nuxt Shop',
-    description: 'Fake shop site, created for technical task.',
-    ogDescription: 'Fake shop site, created for technical task.',
-    ogImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Nuxt_logo_%282021%29.svg/2560px-Nuxt_logo_%282021%29.svg.png',
-    twitterCard: 'summary_large_image',
-    ogUrl: 'https://nuxt-shop-brofrong.vercel.app/'
-});
-
 </script>
 
 <template>

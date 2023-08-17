@@ -13,6 +13,25 @@ const schema = insertProductSchema;
 
 let initialValues: FetchResult<'/api/product', 'get'> | null = null;
 
+
+
+
+
+
+
+
+
+const { data } = await useFetch('/api/products', { method: 'get' })
+
+
+
+
+
+
+
+
+
+
 if (route.query.id) {
     const { data } = await useFetch('/api/product', { query: { id: route.query.id } });
     initialValues = data.value;
