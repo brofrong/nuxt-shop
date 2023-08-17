@@ -1,14 +1,26 @@
 <script setup lang="ts">
+
+const { currentRoute } = useRouter();
+
 const { isOpen, setOpen, shopItems, clearCart } = useShoppingCart();
 
 const totalPrice = computed(() => shopItems.value.reduce((acc, it) => acc + it.price, 0))
 const totalPriceWithDiscount = computed(() => shopItems.value.reduce((acc, it) => acc + it.price - (it.price * (it.discountPercentage || 0) / 100), 0))
 
+
+// скрыть боковое меню при переходе на другую страницу
+watch(currentRoute, () => setOpen(false));
+
+function beforeLeave(el) {
+    const { marginTop } = window.getComputedStyle(el);
+    el.style.top = `${el.offsetTop - parseFloat(marginTop)}px`;
+}
+
 </script>
 
 <template>
     <Transition>
-        <div v-click-outside="() => setOpen(false)" click-oudd v-if="isOpen"
+        <div v-click-outside="() => setOpen(false)" v-if="isOpen"
             class="fixed right-0 z-30 flex flex-col max-h-[calc(100vh_-_64px)] h-[calc(100vh_-_64px)] gap-4 p-4 bg-blue-600 top-16 bg-opacity-90 backdrop-blur-md w-screen sm:w-96">
             <h3 class="text-2xl font-bold text-white">Shopping Cart</h3>
             <div class="flex items-end gap-1">
@@ -29,8 +41,11 @@ const totalPriceWithDiscount = computed(() => shopItems.value.reduce((acc, it) =
             <button @click="clearCart"
                 class="flex items-center justify-center block w-full px-4 py-2 text-center text-white transition-colors bg-red-600 rounded-xl hover:bg-red-700 fill-white"
                 v-if="shopItems.length">Clear cart</button>
-            <div class="flex flex-col gap-4 overflow-y-scroll">
-                <ShoppingCartProductCard v-for="product in shopItems" :product="product" />
+            <div class="flex-grow -mx-4 overflow-x-hidden overflow-y-auto">
+                <TransitionGroup @before-leave="beforeLeave" name="list" tag="div"
+                    class="relative flex flex-col h-full gap-4 px-4 overflow-visible">
+                    <ShoppingCartProductCard :key="product.id" v-for="product in shopItems" :product="product" />
+                </TransitionGroup>
             </div>
             <div v-if="!shopItems.length" class="text-xl font-bold text-center text-white">Shopping cart is empty</div>
         </div>
@@ -46,5 +61,24 @@ const totalPriceWithDiscount = computed(() => shopItems.value.reduce((acc, it) =
 .v-enter-from,
 .v-leave-to {
     transform: translateX(100%);
+}
+
+.list-move,
+/* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translate(150%);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+    position: absolute;
 }
 </style>
