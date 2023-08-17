@@ -7,26 +7,34 @@ import DeleteComponent from '~/assets/svg/delete.svg?component';
 const router = useRouter();
 const route = useRoute();
 
+function setSeo(product: FetchResult<'/api/product', 'get'>) {
+    if (!product) return;
+    useHead({
+        title: `Nuxt Shop - ${product.title}`,
+        meta: [
+            { name: 'description', content: `Fake shop site, created for technical task. Fake product description: ${product.description}` },
+        ],
+    });
+
+    useSeoMeta({
+        title: `Nuxt Shop - ${product.title}`,
+        ogTitle: `Nuxt Shop - ${product.title}`,
+        description: `Fake shop site, created for technical task. Fake product description: ${product.description}`,
+        ogDescription: `Fake shop site, created for technical task. Fake product description: ${product.description}`,
+        ogImage: product.thumbnail,
+        twitterCard: 'summary_large_image',
+        ogUrl: 'https://nuxt-shop-brofrong.vercel.app/'
+    });
+}
+
 const { data: product, error } = useFetch('/api/product', {
     query: { id: route.params.id },
+    onResponse: (response) => setSeo(response.response._data),
 });
 
-useHead({
-    title: `Nuxt Shop - ${product.value?.title}`,
-    meta: [
-        { name: 'description', content: `Fake shop site, created for technical task. Fake product description: ${product.value?.description}` },
-    ],
-});
+watch(product, () => product.value && setSeo(product.value), { immediate: true });
 
-useSeoMeta({
-    title: `Nuxt Shop - ${product.value?.title}`,
-    ogTitle: `Nuxt Shop - ${product.value?.title}`,
-    description: `Fake shop site, created for technical task. Fake product description: ${product.value?.description}`,
-    ogDescription: `Fake shop site, created for technical task. Fake product description: ${product.value?.description}`,
-    ogImage: product.value?.thumbnail,
-    twitterCard: 'summary_large_image',
-    ogUrl: 'https://nuxt-shop-brofrong.vercel.app/'
-});
+watch(error, () => { if (error.value?.statusCode === 404) throw createError({ statusCode: 404, statusMessage: 'Page Not Found' }) }, { immediate: true });
 
 function deleteProduct() {
     $fetch('/api/product', { query: { id: product.value?.id }, method: "DELETE", onResponse: () => { navigateTo('/') } });

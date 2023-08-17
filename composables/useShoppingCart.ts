@@ -6,7 +6,7 @@ const ShoppingCartProductSchema = z.object({
   title: z.string(),
   id: z.number(),
   price: z.number(),
-  discountPercentage: z.number().optional(),
+  discountPercentage: z.number().nullable(),
   thumbnail: z.string(),
 });
 
