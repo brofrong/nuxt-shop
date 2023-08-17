@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { isOpen, shopItems, clearCart } = useShoppingCart();
+const { isOpen, setOpen, shopItems, clearCart } = useShoppingCart();
 
 const totalPrice = computed(() => shopItems.value.reduce((acc, it) => acc + it.price, 0))
 const totalPriceWithDiscount = computed(() => shopItems.value.reduce((acc, it) => acc + it.price - (it.price * (it.discountPercentage || 0) / 100), 0))
@@ -8,7 +8,7 @@ const totalPriceWithDiscount = computed(() => shopItems.value.reduce((acc, it) =
 
 <template>
     <Transition>
-        <div v-if="isOpen"
+        <div v-click-outside="() => setOpen(false)" click-oudd v-if="isOpen"
             class="fixed right-0 z-30 flex flex-col max-h-[calc(100vh_-_64px)] h-[calc(100vh_-_64px)] gap-4 p-4 bg-blue-600 top-16 bg-opacity-90 backdrop-blur-md w-screen sm:w-96">
             <h3 class="text-2xl font-bold text-white">Shopping Cart</h3>
             <div class="flex items-end gap-1">
