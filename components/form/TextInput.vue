@@ -11,7 +11,6 @@ const {
   errorMessage,
   handleBlur,
   handleChange,
-  meta,
 } = useField(name, undefined, {
   initialValue: props.value,
 });

@@ -39,7 +39,8 @@ watch(values, (it) => debouncedEmit('filter', it as ProductFilterType));
         <FormTextInput name="description" label="Description" type="text" placeholder="Best phone" />
         <FormRangeInput name="rating" label="Minimum rating" :min="0" :max="5" :step="0.1" />
         <FormRangeInput name="stock" label="Minimum stock" :min="0" :max="200" :step="1" />
-        <FormRangeInput name="minPrice" label="Minimum price" :min="0" :max="1000" :step="1" />
-        <FormRangeInput name="maxPrice" label="Maximum price" :min="0" :max="1000" :step="1" />
+        <FormTwoRangesInput min-name="minPrice" max-name="maxPrice" label="test" :min="0" :max="2000" :step="1"
+            :min-gap="0">
+        </FormTwoRangesInput>
     </div>
 </template>
