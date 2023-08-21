@@ -13,8 +13,9 @@ const query = productsInputSchema.partial().parse(route.query);
 const filter = ref<ProductsInput>({
     page: query.page || 0,
     minPrice: query.minPrice || 0,
-    maxPrice: query.maxPrice || Infinity,
-    rating: query.rating || 0,
+    maxPrice: query.maxPrice || 10000,
+    minRating: query.minRating || 0,
+    maxRating: query.maxRating || 5,
     stock: query.stock || 0,
     brand: query.brand,
     category: query.category,

@@ -42,7 +42,8 @@ function buildConditions(input: ProductsInput) {
     condition.push(lte(products.price, input.maxPrice));
 
   condition.push(gte(products.price, input.minPrice));
-  condition.push(gte(products.rating, input.rating));
+  condition.push(gte(products.rating, input.minRating));
+  condition.push(lte(products.rating, input.maxRating));
   condition.push(gte(products.stock, input.stock));
 
   return and(...condition);

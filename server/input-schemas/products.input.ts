@@ -11,14 +11,20 @@ export const filterInputSchema = z.object({
     .refine((n) => n >= 0),
   maxPrice: z
     .string()
-    .regex(/\d+|Infinity/)
-    .default("Infinity")
+    .regex(/\d+/)
+    .default("10000")
     .transform(Number)
     .refine((n) => n >= 0),
-  rating: z
+  minRating: z
     .string()
     .regex(/\d+/)
     .default("0")
+    .transform(Number)
+    .refine((n) => n >= 0),
+  maxRating: z
+    .string()
+    .regex(/\d+/)
+    .default("5")
     .transform(Number)
     .refine((n) => n >= 0),
   stock: z

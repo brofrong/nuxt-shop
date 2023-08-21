@@ -62,8 +62,6 @@ function inputMax(e: FocusEvent) {
     minSetValue(value || 0);
 }
 
-
-
 </script>
 
 <template>
@@ -73,22 +71,23 @@ function inputMax(e: FocusEvent) {
         <div class="absolute w-full h-1 bg-gray-300 rounded -z-10"></div>
         <input ref="sliderMin"
             :class="twMerge('absolute top-0 bottom-0 left-0 w-full bg-transparent appearance-none pointer-events-none', minInputValue > (max / 2) && 'z-10')"
-            type="range" :min="0" :max="props.max" :value="minInputValue" @input="slideMin" @blur="minHandleBlur"
-            :id="minName">
+            type="range" :step="props.step" :min="0" :max="props.max" :value="minInputValue" @input="slideMin"
+            @blur="minHandleBlur" :id="minName">
         <input ref="sliderMax"
             class="absolute top-0 bottom-0 left-0 w-full bg-transparent appearance-none pointer-events-none" type="range"
-            :min="0" :max="props.max" :id="maxName" :value="maxInputValue" @input="slideMax" @blur="maxHandleBlur">
+            :min="0" :step="props.step" :max="props.max" :id="maxName" :value="maxInputValue" @input="slideMax"
+            @blur="maxHandleBlur">
     </div>
     <div class="flex gap-4 mt-2">
         <div class="relative">
             <span class="absolute text-sm -translate-y-1/2 pointer-events-none left-2 top-1/2 text-slate-400">from:</span>
-            <input class="w-full px-4 py-2 pl-12 border rounded border-slate-400" type="number" :value="minInputValue"
-                @blur="inputMin" />
+            <input class="w-full px-4 py-2 pl-12 border rounded border-slate-400" :step="props.step" type="number"
+                :value="minInputValue" @blur="inputMin" />
         </div>
         <div class="relative">
             <span class="absolute text-sm -translate-y-1/2 pointer-events-none left-2 top-1/2 text-slate-400">to:</span>
-            <input class="w-full px-4 py-2 pl-12 border rounded border-slate-400" type="number" :value="maxInputValue"
-                @blur="inputMax" />
+            <input class="w-full px-4 py-2 pl-12 border rounded border-slate-400" :step="props.step" type="number"
+                :value="maxInputValue" @blur="inputMax" />
         </div>
     </div>
 </template>
