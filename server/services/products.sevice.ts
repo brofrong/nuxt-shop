@@ -1,17 +1,11 @@
 import { SQL, and, gte, like, lte, sql } from "drizzle-orm";
-import { useValidatedQuery } from "h3-zod";
-import { db } from "../db/db";
+import { ProductsInput } from "../input-schemas/products.input";
 import { products } from "../db/schemas/products.schema";
-import {
-  ProductsInput,
-  productsInputSchema,
-} from "../input-schemas/products.input";
+import { db } from "../db/db";
 
 const PAGE_LIMIT = 10;
 
-export default defineEventHandler(async (event) => {
-  const input = await useValidatedQuery(event, productsInputSchema);
-
+export async function getProducts(input: ProductsInput) {
   const conditions = buildConditions(input);
 
   const rowsCountQuery = getRowsCount(input, conditions);
@@ -28,7 +22,7 @@ export default defineEventHandler(async (event) => {
     skip: PAGE_LIMIT * input.page,
     limit: PAGE_LIMIT,
   };
-});
+}
 
 function buildConditions(input: ProductsInput) {
   const condition: SQL[] = [];

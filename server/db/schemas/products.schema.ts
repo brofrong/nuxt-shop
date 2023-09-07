@@ -25,6 +25,19 @@ export const insertProductSchema = createInsertSchema(products).merge(
   z.object({ thumbnail: string().url() })
 );
 
+export type InsertProductDTO = z.infer<typeof insertProductSchema>;
+
 export const ProductSchema = createSelectSchema(products);
 
 export type Product = z.infer<typeof ProductSchema>;
+
+const imagesArray = z.object({ images: z.array(z.string()) });
+
+export const importSchema = z.object({
+  products: z.array(insertProductSchema.merge(imagesArray)),
+});
+export type ImportDTO = z.infer<typeof importSchema>;
+
+export const ProductSchemaWithImages = ProductSchema.merge(
+  z.object({ images: z.array(z.object({ id: z.number(), url: z.string() })) })
+).optional();

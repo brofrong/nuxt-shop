@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { toTypedSchema } from '@vee-validate/zod';
 import { insertProductSchema } from '~/server/db/schemas/products.schema';
 import { FetchResult } from 'nuxt/app';
+import { RouterOutputs } from 'server/trpc/trpc';
 
 const route = useRoute();
 const router = useRouter();
@@ -11,29 +12,13 @@ const router = useRouter();
 const schema = insertProductSchema;
 
 
-let initialValues: FetchResult<'/api/product', 'get'> | null = null;
+let initialValues: RouterOutputs['product']['get'] | null = null;
 
-
-
-
-
-
-
-
-
-const { data } = await useFetch('/api/products', { method: 'get' })
-
-
-
-
-
-
-
-
+const { $client } = useNuxtApp();
 
 
 if (route.query.id) {
-    const { data } = await useFetch('/api/product', { query: { id: route.query.id } });
+    const { data } = $client.product.get.useQuery({ id: route.query.id.toString() });
     initialValues = data.value;
 }
 

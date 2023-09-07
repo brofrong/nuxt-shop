@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { ProductFilterType } from 'components/product/ProductFilter.vue';
-import { ProductsInput, productsInputSchema } from '~/server/input-schemas/products.input';
+import { ProductsInput, filterQueryInputSchema } from '~/server/input-schemas/products.input';
 import MenuIcon from '~/assets/svg/menu.svg?component';
 import { defaultFilter } from '~/helpers/defaultFilter';
+import { L } from 'drizzle-orm/select.types.d-7da7fae0';
 
+const { $client } = useNuxtApp();
 
 const route = useRoute();
 const router = useRouter();
 
-const query = productsInputSchema.partial().parse(route.query);
+const query = filterQueryInputSchema.partial().parse(route.query);
 
 const filter = ref<ProductsInput>({
     page: query.page || 0,
@@ -28,17 +30,19 @@ watch(() => route.query, () => { if (!Object.values(route.query).length) { Objec
 
 const isOpenFilterModal = ref(false);
 
-const { data, pending, refresh, error } = await useFetch('/api/products', { query: filter });
+const { data, pending, refresh, error } = await $client.products.useQuery(filter);
+
+watch(filter.value, () => refresh());
 
 function updateFilter(updateData: ProductFilterType) {
     Object.assign(filter.value, updateData, { page: 0 });
-    navigateTo({ path: '/', query: filter.value, replace: false })
+    navigateTo({ path: '/', query: filter.value, replace: false });
 }
 
 function changePage(pageNumber: number) {
     filter.value.page = pageNumber;
     if (process.client) window?.scroll({ top: 0 });
-    navigateTo({ path: '/', query: filter.value, replace: false })
+    navigateTo({ path: '/', query: filter.value, replace: false });
 }
 
 </script>

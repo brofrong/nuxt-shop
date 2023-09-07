@@ -8,6 +8,9 @@ export default defineNuxtConfig({
   vite: {
     plugins: [svgLoader()],
   },
+  build: {
+    transpile: ["trpc-nuxt"],
+  },
   postcss: {
     plugins: {
       tailwindcss: {},

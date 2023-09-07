@@ -3,11 +3,12 @@ import { FetchResult } from 'nuxt/app';
 import DeleteIcon from '~/assets/svg/delete.svg?component';
 import EditIcon from '~/assets/svg/edit.svg?component';
 import DeleteComponent from '~/assets/svg/delete.svg?component';
+import { RouterOutputs } from 'server/trpc/trpc';
 
 const router = useRouter();
 const route = useRoute();
 
-function setSeo(product: FetchResult<'/api/product', 'get'>) {
+function setSeo(product: RouterOutputs['product']['get']) {
     if (!product) return;
     useHead({
         title: `Nuxt Shop - ${product.title}`,
@@ -27,14 +28,12 @@ function setSeo(product: FetchResult<'/api/product', 'get'>) {
     });
 }
 
-const { data: product, error } = useFetch('/api/product', {
-    query: { id: route.params.id },
-    onResponse: (response) => setSeo(response.response._data),
-});
+const { $client } = useNuxtApp();
+const { data: product, error } = await $client.product.get.useQuery({ id: route.params.id.toString() });
 
 watch(product, () => product.value && setSeo(product.value), { immediate: true });
 
-watch(error, () => { if (error.value?.statusCode === 404) throw createError({ statusCode: 404, statusMessage: 'Page Not Found' }) }, { immediate: true });
+watch(error, () => { if (error.value?.data?.httpStatus === 404) throw createError({ statusCode: 404, statusMessage: 'Page Not Found' }) }, { immediate: true });
 
 function deleteProduct() {
     $fetch('/api/product', { query: { id: product.value?.id }, method: "DELETE", onResponse: () => { navigateTo('/') } });
